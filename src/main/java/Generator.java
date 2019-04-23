@@ -86,6 +86,10 @@ abstract class Generator {
       return Country.PL.getCity();
     } else if (country == Country.DE) {
       return Country.DE.getCity();
+    } else if (country == Country.UK) {
+      return Country.DE.getCity();
+    } else if (country == Country.NL) {
+      return Country.DE.getCity();
     }
     return null;
   }
@@ -94,7 +98,7 @@ abstract class Generator {
     String pesel;
     int checksum = 0;
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-    String datetime = generateRandomDate("1990-01-01", "2010-12-30");
+    String datetime = generateRandomDate("1970-01-01", "2010-12-30");
     Date date = null;
     try {
       date = format.parse(datetime);
@@ -126,21 +130,19 @@ abstract class Generator {
 
     pesel = year.substring(2, 4) + monthPesel + day + generateNumber(4);
 
-    for (int i = 0; i < pesel.length(); i++) {
-      if (i == 0) checksum = checksum + Integer.parseInt(String.valueOf(pesel.charAt(i))) * 1;
-      else if (i == 1) checksum = checksum + Integer.parseInt(String.valueOf(pesel.charAt(i))) * 3;
-      else if (i == 2) checksum = checksum + Integer.parseInt(String.valueOf(pesel.charAt(i))) * 7;
-      else if (i == 3) checksum = checksum + Integer.parseInt(String.valueOf(pesel.charAt(i))) * 9;
-      else if (i == 4) checksum = checksum + Integer.parseInt(String.valueOf(pesel.charAt(i))) * 1;
-      else if (i == 5) checksum = checksum + Integer.parseInt(String.valueOf(pesel.charAt(i))) * 3;
-      else if (i == 6) checksum = checksum + Integer.parseInt(String.valueOf(pesel.charAt(i))) * 7;
-      else if (i == 7) checksum = checksum + Integer.parseInt(String.valueOf(pesel.charAt(i))) * 9;
-      else if (i == 8) checksum = checksum + Integer.parseInt(String.valueOf(pesel.charAt(i))) * 1;
-      else if (i == 9) checksum = checksum + Integer.parseInt(String.valueOf(pesel.charAt(i))) * 3;
 
-    }
+    checksum += Character.getNumericValue(pesel.charAt(0));
+    checksum += Character.getNumericValue(pesel.charAt(1)) * 3;
+    checksum += Character.getNumericValue(pesel.charAt(2)) * 7;
+    checksum += Character.getNumericValue(pesel.charAt(3)) * 9;
+    checksum += Character.getNumericValue(pesel.charAt(4));
+    checksum += Character.getNumericValue(pesel.charAt(5)) * 3;
+    checksum += Character.getNumericValue(pesel.charAt(6)) * 7;
+    checksum += Character.getNumericValue(pesel.charAt(7)) * 9;
+    checksum += Character.getNumericValue(pesel.charAt(8));
+    checksum += Character.getNumericValue(pesel.charAt(9)) * 3;
 
-    pesel += (10 - checksum % 10);
+    pesel += 10 - checksum % 10;
 
     return pesel;
   }
