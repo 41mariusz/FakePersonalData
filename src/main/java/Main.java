@@ -1,31 +1,24 @@
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
-public class Main {
-
-  static String Format = "yyy-MM-dd";
-
-
-  public static String generateRandomDate(String startDate, String endDate) throws ParseException {
-    DateFormat formatter = new SimpleDateFormat(Format);
-    Calendar calendar = Calendar.getInstance();
-    calendar.setTime(formatter.parse(startDate));
-    Long value1 = calendar.getTimeInMillis();
-
-    calendar.setTime(formatter.parse(endDate));
-    Long value2 = calendar.getTimeInMillis();
-
-    long value3 = (long) (value1 + Math.random() * (value2 - value1));
-    calendar.setTimeInMillis(value3);
-    return formatter.format(calendar.getTime());
-  }
-
-
-  public static void main(String args[]) throws ParseException {
-
+public class Main extends Generator {
+  public static void main(String[] args) {
     System.out.println(generateRandomDate("1800-01-01", "1899-12-30"));
+    System.out.println(generateNumberRange(0, 10));
+    System.out.println(generateNumber(3));
+    System.out.println(generateEmail(10));
+    System.out.println(generatePasswd(5));
+    System.out.println(generateString(3));
+    System.out.println(generateName(Name.Male));
+    System.out.println(generateCity(Country.PL));
 
+    System.out.println("-------");
+
+    System.out.println(generateRandomDate("2000-01-01", "2010-12-30"));
+    System.out.println(generateNumberRange(422, 4532));
+    System.out.println(generateNumber(2));
+    System.out.println(generateEmail(10));
+    System.out.println(generatePasswd(7));
+    System.out.println(generateString(8));
+    System.out.println(generateName(Name.Female));
+    System.out.println(generateCity(Country.DE));
+    System.out.println(generatePesel());
   }
 }
